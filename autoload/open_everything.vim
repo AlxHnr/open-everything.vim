@@ -50,7 +50,7 @@ function! open_everything#open() " {{{
     return
   endif
 
-  if l:path_name =~ '\v^([a-zA-Z]+:\/\/)?(\w+\.)+[a-zA-Z0-9\-\%\/]+$'
+  if l:path_name =~ '\v^([a-zA-Z]+:\/\/)?(\w+\.)+[a-zA-Z0-9_\.\-\%\?\=\/]+$'
     " Prepend 'http://' to the path, if no protocol was specified. This is
     " needed by xgd-open.
     if l:path_name !~ '\v^([a-zA-Z]+:\/\/).*$'
