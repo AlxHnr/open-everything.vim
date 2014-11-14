@@ -43,27 +43,31 @@ function! s:open_file(path) " {{{
   endif
 endfunction " }}}
 
-" Opens the file or url under the cursor.
+" Opens the file or URL under the cursor.
 function! open_everything#open() " {{{
   let l:path_name = substitute(expand('<cfile>'), '^\~', $HOME, '')
   if empty(l:path_name)
     return
   endif
 
-  if l:path_name =~ '\v^([a-zA-Z]+:\/\/)?(\w+\.)+[a-zA-Z0-9_\.\-\%\?\=\/]+$'
-    " Prepend 'http://' to the path, if no protocol was specified. This is
-    " needed by xgd-open.
-    if l:path_name !~ '\v^([a-zA-Z]+:\/\/).*$'
-      let l:path_name = 'http://' . l:path_name
-    endif
-    call s:xdg_open(l:path_name)
-  elseif l:path_name =~ '\v^\/.*$' && s:file_exists(l:path_name)
+  " Check if 'l:path_name' is a local file.
+  if l:path_name =~ '\v^\/.*$' && s:file_exists(l:path_name)
     call s:open_file(l:path_name)
   else
-    " Check if the file is in the current working directory.
+    " Get the filepath relative to the current files pwd.
     let l:file_in_cwd = expand('%:p:h') . '/' . l:path_name
+
     if s:file_exists(l:file_in_cwd)
       call s:open_file(l:file_in_cwd)
+    elseif l:path_name =~
+      \ '\v^([a-zA-Z]+:\/\/)?(\w+\.)+[a-zA-Z0-9_\.\-\%\?\=\/]+$'
+
+      " Ensure that a protocol is specified. This is needed by xdg-open.
+      if l:path_name !~ '\v^([a-zA-Z]+:\/\/).*$'
+        let l:path_name = 'http://' . l:path_name
+      endif
+
+      call s:xdg_open(l:path_name)
     else
       echo "unable to open '" . l:path_name . "'"
     endif
