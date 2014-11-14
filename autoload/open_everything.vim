@@ -60,6 +60,9 @@ function! open_everything#open() " {{{
     if s:file_exists(l:file_in_cwd)
       call s:open_file(l:file_in_cwd)
     elseif l:path_name =~
+      \ '\v^(\w|\-)+(\.(\w|\-)+)*\@(\w|\-)+(\.(\w|\-)+)+$'
+      call s:xdg_open('mailto:' . l:path_name)
+    elseif l:path_name =~
       \ '\v^([a-zA-Z]+:\/\/)?(\w+\.)+[a-zA-Z0-9_\.\-\%\?\=\/]+$'
 
       " Ensure that a protocol is specified. This is needed by xdg-open.

@@ -5,19 +5,22 @@ program. Just press return, and this plugin will do the right thing.
 
 What it supports:
 
-* URLs like https://www.github.com, www.github.com or
-  [github.com](https://github.com/)
 * Paths like `/home/AlxHnr/.bashrc`, or `~/.bashrc`
 * Paths relative to the current files directory
+* URLs like https://www.github.com, www.github.com or
+  [github.com](https://github.com/)
+* Email addresses like foo@bar.com
 
 Text files will be opened in the current buffer. Non-text files will be
 opened using _xdg-open_. To change the default program for a specific
 filetype, refer to the documentation of your desktop environment.
+Open-everything uses a pretty simple set of rules to determine what to do
+with the string under the cursor. Finding out whether a URL or email
+address is valid or not, is the task of your browser or email client.
 
 What it doesn't support:
 
 * Paths containing environment variables, like `/home/$USER/.bashrc`
-* Opening email addresses like foo@bar.com
 * Paths which contain spaces
 * Selected paths in visual mode
 
