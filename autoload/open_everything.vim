@@ -31,7 +31,7 @@ endfunction " }}}
 " Opens a file either in vim or using 'xdg-open', depending on whether its
 " a text file or not.
 function! s:open_file(path) " {{{
-  if system('file -sb --mime-type ' . a:path) =~ '^text\/.*$'
+  if system('file -sb --mime-type ' . shellescape(a:path)) =~ '^text\/.*$'
     if &modified
       echo 'refusing to leave current file: it has unwritten changes.'
       return
