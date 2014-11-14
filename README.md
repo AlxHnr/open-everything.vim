@@ -1,4 +1,4 @@
-# open\_everything.vim
+# open-everything.vim
 
 This plugin allows you to open the path under the cursor with the correct
 program. Just press return, and open\_everything will do the rest.
