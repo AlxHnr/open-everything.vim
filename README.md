@@ -1,12 +1,13 @@
 # open-everything.vim
 
 This plugin allows you to open the path under the cursor with the correct
-program. Just press return, and open\_everything will do the rest.
+program. Just press return, and this plugin will do the right thing.
 
 What it supports:
 
-* URLs like https://www.github.com, www.github.com or github.com
-* Paths like _/home/AlxHnr/.bashrc_, or _~/.bashrc_
+* URLs like https://www.github.com, www.github.com or
+  [github.com](https://github.com/)
+* Paths like `/home/AlxHnr/.bashrc`, or `~/.bashrc`
 * Paths relative to the current files directory
 
 Text files will be opened in the current buffer. Non-text files will be
@@ -15,14 +16,14 @@ filetype, refer to the documentation of your desktop environment.
 
 What it doesn't support:
 
-* Paths containing environment variables, like _/home/$USER/.bashrc_
-* Opening email addresses with your favorite client, like foo@bar.com
+* Paths containing environment variables, like `/home/$USER/.bashrc`
+* Opening email addresses like foo@bar.com
 * Paths which contain spaces
 * Selected paths in visual mode
 
 ## Configuration
 
-Open\_everything.vim provides these options:
+This plugin provides these options:
 
 ### g:open\_everything#ignore\_filetypes
 
