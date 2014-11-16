@@ -63,7 +63,7 @@ function! open_everything#open() " {{{
       \ '\v^(\w|\-)+(\.(\w|\-)+)*\@(\w|\-)+(\.(\w|\-)+)+$'
       call s:xdg_open('mailto:' . l:path_name)
     elseif l:path_name =~
-      \ '\v^([a-zA-Z]+:\/\/)?(\w+\.)+[a-zA-Z0-9_\.\-\%\?\=\/]+$'
+      \ '\v^([a-zA-Z]+:\/\/)?(\w+\.)+(\w|[\.\-\/\?\%\=\#])+$'
 
       " Ensure that a protocol is specified. This is needed by xdg-open.
       if l:path_name !~ '\v^([a-zA-Z]+:\/\/).*$'
