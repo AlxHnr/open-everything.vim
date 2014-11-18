@@ -1,0 +1,90 @@
+*open-everything*                         Opens the path or URL under the cursor.
+
+CONTENTS                                               *open-everything-contents*
+
+  1. Description....................................|open-everything-description|
+  2. Commands..........................................|open-everything-commands|
+    2.1 Open the path under the cursor.....................|open_everything#open|
+  3. Options............................................|open-everything-options|
+    3.1 Ignore specific filetypes..............|open_everything#ignore_filetypes|
+    3.2 Key mappings........................................|open_everything#key|
+  4. License............................................|open-everything-license|
+
+===============================================================================
+1. Description                                      *open-everything-description*
+
+|Open-everything| is a plugin which allows you to open filepaths, URLs or
+email addresses under the cursor with external programs. It depends on
+xdg-open and the program "file". By default the open command is mapped to
+<CR>.
+
+Text files will be opened in the current buffer. Non-text files will be opened
+using your systems default program. To change the default program for a
+specific filetype, refer to the documentation of your desktop environment.
+
+What it supports:
+
+  - Paths like /home/foo/.bashrc, or ~/.bashrc
+  - Paths relative to the current files directory
+  - URLs like https://www.github.com, www.github.com or github.com
+  - Email addresses like foo@bar.com
+
+===============================================================================
+2. Commands                                            *open-everything-commands*
+
+-------------------------------------------------------------------------------
+2.1 Open the path under the cursor                         *open_everything#open*
+
+The function |open_everything#open| takes no arguments and will open the path
+under the cursor like specified in |open-everything-description|.
+
+===============================================================================
+3. Options                                              *open-everything-options*
+
+-------------------------------------------------------------------------------
+3.1 Ignore specific filetypes                *g:open_everything#ignore_filetypes*
+
+The variable |g:open_everything#ignore_filetypes| is a dictionary, which
+contains filetypes for which no mappings should be defined. If 'buftype' is
+"nofile", no keys will be mapped for the current buffer at all.
+
+Here is an example of how to disable |open_everything| for python and lua files:
+>
+  let g:open_everything#ignore_filetypes = { 'python' : 1, 'lua' : 1 }
+<
+-------------------------------------------------------------------------------
+3.2 Key mappings                                          *g:open_everything#key*
+
+The variable |g:open_everything#key| contains the key to which
+|open_everything#open| gets mapped to. These mappings are only accessible in
+normal mode from specific buffers. See |g:open_everything#ignore_filetypes|
+for more informations.
+
+Default:
+>
+  let g:open_everything#key = '<CR>'
+<
+===============================================================================
+4. License                                              *open-everything-license*
+>
+  Copyright (c) 2014 Alexander Heinrich <alxhnr@nudelpost.de>
+
+  This software is provided 'as-is', without any express or implied
+  warranty. In no event will the authors be held liable for any damages
+  arising from the use of this software.
+
+  Permission is granted to anyone to use this software for any purpose,
+  including commercial applications, and to alter it and redistribute it
+  freely, subject to the following restrictions:
+
+     1. The origin of this software must not be misrepresented; you must
+        not claim that you wrote the original software. If you use this
+        software in a product, an acknowledgment in the product
+        documentation would be appreciated but is not required.
+
+     2. Altered source versions must be plainly marked as such, and must
+        not be misrepresented as being the original software.
+
+     3. This notice may not be removed or altered from any source
+        distribution.
+<

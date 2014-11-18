@@ -16,13 +16,10 @@ opened using _xdg-open_. To change the default program for a specific
 filetype, refer to the documentation of your desktop environment.
 Open-everything uses a pretty simple set of rules to determine what to do
 with the string under the cursor. Finding out whether a URL or email
-address is valid or not, is the task of your browser or email client.
+address is valid or not is the task of your browser or email client.
 
-What it doesn't support:
-
-* Paths containing environment variables, like `/home/$USER/.bashrc`
-* Paths which contain spaces
-* Selected paths in visual mode
+This plugin doesn't support paths containing whitespaces. It also can't
+open selected paths in visual mode yet.
 
 ## Configuration
 
