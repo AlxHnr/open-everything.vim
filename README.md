@@ -1,7 +1,7 @@
 # open-everything.vim
 
 This plugin allows you to open the path under the cursor with the correct
-program. Just press return, and this plugin will do the right thing.
+program. It depends on the programs _xdg-open_ and _file_.
 
 What it supports:
 

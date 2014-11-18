@@ -25,6 +25,16 @@ if exists('g:loaded_open_everything')
 endif
 let g:loaded_open_everything = 1
 
+if !executable('xdg-open')
+  echomsg "open_everything.vim: failed to find the program 'xdg-open'."
+  finish
+endif
+
+if !executable('file')
+  echomsg "open_everything.vim: failed to find the program 'file'."
+  finish
+endif
+
 let s:ignore_filetypes =
   \ {
   \   'qf' : 1,
