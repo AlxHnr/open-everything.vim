@@ -1,17 +1,17 @@
 # open-everything.vim
 
-This plugin allows you to open the path under the cursor with the correct
-program. It depends on the programs _xdg-open_ and _file_.
+This plugin allows you to open the path or URL under the cursor by pressing
+return. It depends on the programs _xdg-open_ and _file_.
 
-What it supports:
+Here is a list of supported things, sorted by priority:
 
-* Paths like `/home/AlxHnr/.bashrc`, or `~/.bashrc`
+* Paths like `/home/foo/.bashrc`, or `~/.bashrc`
 * Paths relative to the current files directory
+* URLs like https://www.github.com or www.github.com
 * Email addresses like foo@bar.com
-* URLs like https://www.github.com, www.github.com or
-  [github.com](https://github.com/)
 * Header files like stdlib.h or glib/stdio.h
 * Vim tags
+* URLs like github.com
 
 Text files will be opened in the current buffer. Non-text files will be
 opened using _xdg-open_. To change the default program for a specific
