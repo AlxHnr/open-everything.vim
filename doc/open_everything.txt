@@ -6,8 +6,8 @@ CONTENTS                                               *open-everything-contents
   2. Commands..........................................|open-everything-commands|
     2.1 Open the path under the cursor.....................|open_everything#open|
   3. Options............................................|open-everything-options|
-    3.1 Ignore specific filetypes..............|open_everything#ignore_filetypes|
-    3.2 Key mappings........................................|open_everything#key|
+    3.1 Ignore specific filetypes............|g:open_everything#ignore_filetypes|
+    3.2 Key mappings......................................|g:open_everything#key|
   4. License............................................|open-everything-license|
 
 ===============================================================================
@@ -26,8 +26,13 @@ What it supports:
 
   - Paths like /home/foo/.bashrc, or ~/.bashrc
   - Paths relative to the current files directory
-  - URLs like https://www.github.com, www.github.com or github.com
   - Email addresses like foo@bar.com
+  - URLs like https://www.github.com, www.github.com or github.com
+  - Vim tags
+
+The list above is sorted by priority. So if you try to open "foo.bin" or
+"foo.org" and its an existing file, it will open it without even checking if
+this could be a URL or a tag.
 
 ===============================================================================
 2. Commands                                            *open-everything-commands*

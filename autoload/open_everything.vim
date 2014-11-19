@@ -53,26 +53,29 @@ function! open_everything#open() " {{{
   " Check if 'l:path_name' is a local file.
   if l:path_name =~ '\v^\/.*$' && s:file_exists(l:path_name)
     call s:open_file(l:path_name)
-  else
-    " Get the filepath relative to the current files pwd.
-    let l:file_in_cwd = expand('%:p:h') . '/' . l:path_name
+    return
+  endif
 
-    if s:file_exists(l:file_in_cwd)
-      call s:open_file(l:file_in_cwd)
-    elseif l:path_name =~
-      \ '\v^(\w|\-)+(\.(\w|\-)+)*\@(\w|\-)+(\.(\w|\-)+)+$'
-      call s:xdg_open('mailto:' . l:path_name)
-    elseif l:path_name =~
-      \ '\v^([a-zA-Z]+:\/\/)?(\w+\.)+(\w|[\.\-\/\?\%\=\#])+$'
+  " Get the filepath relative to the current files pwd.
+  let l:file_in_cwd = expand('%:p:h') . '/' . l:path_name
 
-      " Ensure that a protocol is specified. This is needed by xdg-open.
-      if l:path_name !~ '\v^([a-zA-Z]+:\/\/).*$'
-        let l:path_name = 'http://' . l:path_name
-      endif
+  if s:file_exists(l:file_in_cwd)
+    call s:open_file(l:file_in_cwd)
+  elseif l:path_name =~
+    \ '\v^(\w|\-)+(\.(\w|\-)+)*\@(\w|\-)+(\.(\w|\-)+)+$'
+    call s:xdg_open('mailto:' . l:path_name)
+  elseif l:path_name =~
+    \ '\v^([a-zA-Z]+:\/\/)?(\w+\.)+(\w|[\.\-\/\?\%\=\#])+$'
 
-      call s:xdg_open(l:path_name)
-    else
-      echo "unable to open '" . l:path_name . "'"
+    " Ensure that a protocol is specified. This is needed by xdg-open.
+    if l:path_name !~ '\v^([a-zA-Z]+:\/\/).*$'
+      let l:path_name = 'http://' . l:path_name
     endif
+
+    call s:xdg_open(l:path_name)
+  elseif !empty(taglist('^' . l:path_name . '$'))
+    execute 'tag ' . l:path_name
+  else
+    echo "unable to open '" . l:path_name . "'"
   endif
 endfunction " }}}

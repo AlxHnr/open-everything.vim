@@ -57,6 +57,10 @@ function! s:setup_mappings() " {{{
   execute 'nnoremap <silent><buffer> ' . g:open_everything#key
     \ . ' :call open_everything#open()<CR>'
   setlocal isfname+=?,@-@
+
+  if &filetype == 'help'
+    setlocal isfname+=:,'
+  endif
 endfunction " }}}
 
 augroup open_everything

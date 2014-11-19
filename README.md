@@ -7,9 +7,10 @@ What it supports:
 
 * Paths like `/home/AlxHnr/.bashrc`, or `~/.bashrc`
 * Paths relative to the current files directory
+* Email addresses like foo@bar.com
 * URLs like https://www.github.com, www.github.com or
   [github.com](https://github.com/)
-* Email addresses like foo@bar.com
+* Vim tags
 
 Text files will be opened in the current buffer. Non-text files will be
 opened using _xdg-open_. To change the default program for a specific
