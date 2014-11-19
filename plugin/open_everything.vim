@@ -35,19 +35,12 @@ if !executable('file')
   finish
 endif
 
-let s:ignore_filetypes =
-  \ {
-  \   'qf' : 1,
-  \ }
-
 if !exists('g:open_everything#key')
   let g:open_everything#key = '<CR>'
 endif
 
 function! s:setup_mappings() " {{{
-  if &buftype == 'nofile'
-    return
-  elseif has_key(s:ignore_filetypes, &filetype)
+  if &buftype == 'nofile' || &filetype == 'qf'
     return
   elseif exists('g:open_everything#ignore_filetypes')
     \ && has_key(g:open_everything#ignore_filetypes, &filetype)
@@ -58,7 +51,7 @@ function! s:setup_mappings() " {{{
     \ . ' :call open_everything#open()<CR>'
   setlocal isfname+=?,@-@
 
-  if &filetype == 'help'
+  if &buftype == 'help'
     setlocal isfname+=:,'
   endif
 endfunction " }}}
