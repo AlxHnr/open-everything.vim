@@ -10,6 +10,7 @@ What it supports:
 * Email addresses like foo@bar.com
 * URLs like https://www.github.com, www.github.com or
   [github.com](https://github.com/)
+* Header files like stdlib.h or glib/stdio.h
 * Vim tags
 
 Text files will be opened in the current buffer. Non-text files will be
