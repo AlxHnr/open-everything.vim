@@ -52,7 +52,7 @@ function! s:setup_mappings() " {{{
   setlocal isfname+=?,@-@
 
   if &buftype == 'help'
-    setlocal isfname+=:,'
+    setlocal isfname+=:,',(,)
   endif
 endfunction " }}}
 
