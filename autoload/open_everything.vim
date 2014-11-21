@@ -37,7 +37,7 @@ function! s:open_file(path) " {{{
       return
     endif
 
-    execute 'edit ' . a:path
+    execute 'edit ' . escape(a:path, '\ ')
   else
     call s:xdg_open(a:path)
   endif

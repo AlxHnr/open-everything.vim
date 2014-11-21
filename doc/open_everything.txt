@@ -13,7 +13,7 @@ CONTENTS                                               *open-everything-contents
 ===============================================================================
 1. Description                                      *open-everything-description*
 
-|Open-everything| is a plugin which allows you to open filepaths, URLs or
+|open-everything| is a plugin which allows you to open filepaths, URLs or
 email addresses under the cursor with external programs. It depends on
 xdg-open and the program "file". By default the open command is mapped to
 <CR>.
