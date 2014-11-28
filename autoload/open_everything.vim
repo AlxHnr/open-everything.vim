@@ -68,11 +68,11 @@ function! open_everything#open() " {{{
   elseif l:path_name =~ '\v\c^.*\.h(c|pp|xx)?$'
     " Open a header file.
     normal! gf
-  elseif !empty(taglist('^' . l:path_name . '$'))
+  elseif !empty(taglist(l:path_name))
     " Open a Tag.
-    execute 'tag ' . l:path_name
+    execute 'tag ' . taglist(l:path_name)[0].name
   elseif l:path_name =~ '\v^(\w+\.)+(\w|[\.\-\/\?\%\=\#])+$'
-    " Treat filepath as an URL.
+    " Treat filepath as a URL.
     call s:xdg_open('http://' . l:path_name)
   else
     echo "unable to open '" . l:path_name . "'"
