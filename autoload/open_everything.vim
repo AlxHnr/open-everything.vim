@@ -45,7 +45,15 @@ endfunction " }}}
 
 " Opens the file or URL under the cursor.
 function! open_everything#open() " {{{
+  let l:backup_isfname = &isfname
+  setlocal isfname+=?,@-@
+  if &buftype == 'help'
+    setlocal isfname+=:,',(,)
+  endif
+
   let l:path_name = substitute(expand('<cfile>'), '^\~', $HOME, '')
+  let &isfname = l:backup_isfname
+
   if empty(l:path_name)
     return
   endif
