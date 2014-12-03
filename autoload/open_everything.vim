@@ -53,7 +53,7 @@ endfunction " }}}
 " Opens the file or URL under the cursor.
 function! open_everything#open() " {{{
   let l:backup_isfname = &isfname
-  setlocal isfname+=?,@-@
+  setlocal isfname+=?,@-@,:,&
   if &buftype == 'help'
     setlocal isfname+=:,',(,)
   endif
@@ -71,15 +71,17 @@ function! open_everything#open() " {{{
   elseif s:file_exists(expand('%:p:h') . '/' . l:path_name)
     " Open a file path relative to the pwd of the current file.
     call s:open_file(expand('%:p:h') . '/' . l:path_name)
-  elseif l:path_name =~ '\v^\w+:\/\/(\w+\.)+(\w|[\.\-\/\?\%\=\#])+$'
+  elseif l:path_name =~
+    \ '\v\c^\w+:\/\/([a-z0-9_:\-\@]+\.)+[a-z0-9_\.\-\:\/\?\%\=\&\#]+$'
     " Open a URL starting with a scheme, e.g http://github.com.
     call s:xdg_open(l:path_name)
-  elseif l:path_name =~ '\v^www\.(\w+\.)+(\w|[\.\-\/\?\%\=\#])+$'
-    " Open a URL starting with www.
-    call s:xdg_open('http://' . l:path_name)
   elseif l:path_name =~ '\v^(\w|\-)+(\.(\w|\-)+)*\@(\w|\-)+(\.(\w|\-)+)+$'
     " Open an email address.
     call s:xdg_open('mailto:' . l:path_name)
+  elseif l:path_name =~
+    \ '\v\c^www\.([a-z0-9_:\-\@]+\.)+[a-z0-9_\.\-\:\/\?\%\=\&\#]+$'
+    " Open a URL starting with www.
+    call s:xdg_open('http://' . l:path_name)
   elseif l:path_name =~ '\v\c^.*\.h(c|pp|xx)?$'
     " Open a header file.
     normal! gf
@@ -88,7 +90,7 @@ function! open_everything#open() " {{{
     execute 'tag ' . taglist(l:path_name)[0].name
   else
     let l:matches = matchlist(l:path_name,
-      \ '\v^\w+\.(\a+)(\/(\w|[\.\-\/\?\%\=\#])+)?$')
+      \ '\v\c^([a-z_\-]+\.)+(\a+)(\/[a-z0-9_\.\-\:\/\?\%\=\&\#]+)?$')
 
     if !empty(l:matches) && (l:matches[1] =~ '\v^[a-z]{2}$'
       \ || has_key(s:known_domains, l:matches[1]))
