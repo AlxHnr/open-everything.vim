@@ -20,6 +20,13 @@
 "       distribution.
 " }}}
 
+" Top-level domains, which are not matched by '[a-z]{2}'.
+let s:known_domains =
+  \ {
+  \   'com'  : 1, 'edu' : 1, 'gov' : 1, 'int' : 1, 'mil' : 1,
+  \   'nato' : 1, 'net' : 1, 'org' : 1,
+  \ }
+
 function! s:xdg_open(path) " {{{
   call system('xdg-open ' . shellescape(a:path) . ' >/dev/null 2>&1 &')
 endfunction " }}}
@@ -79,10 +86,16 @@ function! open_everything#open() " {{{
   elseif !empty(taglist(l:path_name))
     " Open a Tag.
     execute 'tag ' . taglist(l:path_name)[0].name
-  elseif l:path_name =~ '\v^(\w+\.)+(\w|[\.\-\/\?\%\=\#])+$'
-    " Treat filepath as a URL.
-    call s:xdg_open('http://' . l:path_name)
   else
-    echo "unable to open '" . l:path_name . "'"
+    let l:matches = matchlist(l:path_name,
+      \ '\v^\w+\.(\a+)(\/(\w|[\.\-\/\?\%\=\#])+)?$')
+
+    if !empty(l:matches) && (l:matches[1] =~ '\v^[a-z]{2}$'
+      \ || has_key(s:known_domains, l:matches[1]))
+      " Treat filepath as a URL.
+      call s:xdg_open('http://' . l:path_name)
+    else
+      echo "unable to open '" . l:path_name . "'"
+    endif
   endif
 endfunction " }}}
