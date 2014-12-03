@@ -92,8 +92,8 @@ function! open_everything#open() " {{{
     let l:matches = matchlist(l:path_name,
       \ '\v\c^([a-z_\-]+\.)+(\a+)(\/[a-z0-9_\.\-\:\/\?\%\=\&\#]+)?$')
 
-    if !empty(l:matches) && (l:matches[1] =~ '\v^[a-z]{2}$'
-      \ || has_key(s:known_domains, l:matches[1]))
+    if !empty(l:matches) && (l:matches[2] =~ '\v^[a-z]{2}$'
+      \ || has_key(s:known_domains, l:matches[2]))
       " Treat filepath as a URL.
       call s:xdg_open('http://' . l:path_name)
     else
