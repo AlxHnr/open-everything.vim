@@ -61,7 +61,7 @@ function! open_everything#open() " {{{
   let l:path_name = substitute(expand('<cfile>'), '^\~', $HOME, '')
   let &isfname = l:backup_isfname
 
-  if empty(l:path_name)
+  if empty(l:path_name) || l:path_name =~ '^\.\.\?$'
     return
   endif
 
