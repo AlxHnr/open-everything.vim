@@ -35,6 +35,22 @@ function! s:file_exists(path) " {{{
   return filereadable(a:path) || isdirectory(a:path)
 endfunction " }}}
 
+" Returns true if the given manpage exists.
+function! s:manpage_exists(name) " {{{
+  " A regular expression for matching strings like 'printf(3)'.
+  let l:manpage_name_pattern = '\v^(\w+)\((\d+)\)$'
+
+  if a:name =~ l:manpage_name_pattern
+    let l:name_parts = matchlist(a:name, l:manpage_name_pattern)
+    call system('man ' . l:name_parts[2] . ' '
+      \ . shellescape(l:name_parts[1]) . ' >/dev/null 2>&1')
+  else
+    call system('man ' . shellescape(a:name) . ' >/dev/null 2>&1')
+  endif
+
+  return !v:shell_error
+endfunction " }}}
+
 " Opens a file either in vim or using 'xdg-open', depending on whether its
 " a text file or not.
 function! s:open_file(path) " {{{
@@ -56,6 +72,8 @@ function! open_everything#open() " {{{
   setlocal isfname+=?,@-@,:,&
   if &buftype == 'help'
     setlocal isfname+=:,',(,)
+  elseif &filetype == 'man'
+    setlocal isfname+=:,(,)
   endif
 
   let l:path_name = substitute(expand('<cfile>'), '^\~', $HOME, '')
@@ -83,11 +101,16 @@ function! open_everything#open() " {{{
     " Open a URL starting with www.
     call s:xdg_open('http://' . l:path_name)
   elseif l:path_name =~ '\v\c^.*\.h(c|pp|xx)?$'
+    \ && &filetype =~ '\v^c(pp)?$'
     " Open a header file.
     normal! gf
   elseif !empty(taglist(l:path_name))
     " Open a Tag.
     execute 'tag ' . taglist(l:path_name)[0].name
+  elseif s:manpage_exists(l:path_name)
+    execute 'Man ' . escape(l:path_name, '\ ')
+  elseif &filetype == 'man' && l:path_name =~ '\v\w+\(.*$'
+    execute 'Man ' . escape(matchstr(l:path_name, '\v^[^\(]+'), '\ ')
   else
     let l:matches = matchlist(l:path_name,
       \ '\v\c^([a-z_\-]+\.)+(\a+)(\/[a-z0-9_\.\-\:\/\?\%\=\&\#]+)?$')
