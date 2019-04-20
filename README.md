@@ -1,3 +1,8 @@
+**Note**: I don't recommend using this plugin anymore. It does too much and
+is inconsistent with the rest of vim. Learn to use _gf_, _K_ and the
+_star_-register instead. Opening URLs and media files with external
+programs is rather annoying and may happen unintentionally.
+
 This plugin opens the item under the cursor when return is pressed. It
 depends on _xdg-open_ and the _file_ command.
 
